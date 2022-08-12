@@ -1508,7 +1508,7 @@ init 5 python:
         code="MOO"
     )
 
-label dale_musical:
+label dale_codedout:
     if renpy.random.randint(1, 2) == 1:
         m 1hksdrb "Ahaha, oh dear!"
         m 1fusdra "I'm sorry, [mas_get_player_nickname()], I don't mean to laugh."
