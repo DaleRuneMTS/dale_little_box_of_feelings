@@ -9,7 +9,7 @@ init -990 python in mas_submod_utils:
         dependencies={},
         settings_pane=None,
         version_updates={
-        "DaleRuneMTS_dale_little_box_of_feelings_1_5": "DaleRuneMTS_dale_little_box_of_feelings_1_6"
+        "DaleRuneMTS_dale_little_box_of_feelings_1.5": "DaleRuneMTS_dale_little_box_of_feelings_1.6"
         }
     )
 
