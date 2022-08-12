@@ -5,11 +5,11 @@ init -990 python:
         name="Little Box of Feelings",
         description="Expand your emotional vocabulary with this submod, and tell Monika you're feeling weird, drained, lucky, itchy, and more!"
         "New for V1.6: Two new emotions, 'beautiful' and 'all Pythoned out'. This is mostly just a test for the updater, if I'm honest. Some mood categorizations have also been corrected.",
-        version="1.6",
+        version="1.6.0",
         dependencies={},
         settings_pane=None,
         version_updates={
-        "DaleRuneMTS_dale_little_box_of_feelings_1.5": "DaleRuneMTS_dale_little_box_of_feelings_1.6"
+        "DaleRuneMTS_dale_little_box_of_feelings_1.5.0": "DaleRuneMTS_dale_little_box_of_feelings_1.6.0"
         }
     )
 
@@ -22,7 +22,7 @@ init -989 python:
             repository_name="dale_little_box_of_feelings",
             extraction_depth=2
         )
-        
+
 default p_surname = persistent._mas_player_surname
 default persistent._mas_player_surname = None
 
