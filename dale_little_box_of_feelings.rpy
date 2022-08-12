@@ -1,6 +1,6 @@
 # Register the submod
-init -990 python in mas_submod_utils:
-    Submod(
+init -990 python:
+    store.mas_submod_utils.Submod(
         author="DaleRuneMTS",
         name="Little Box of Feelings",
         description="Expand your emotional vocabulary with this submod, and tell Monika you're feeling weird, drained, lucky, itchy, and more!"
@@ -20,10 +20,9 @@ init -989 python:
             submod="Little Box of Feelings",
             user_name="DaleRuneMTS",
             repository_name="dale_little_box_of_feelings",
-            submod_dir="/Submods",
             extraction_depth=2
         )
-
+        
 default p_surname = persistent._mas_player_surname
 default persistent._mas_player_surname = None
 
