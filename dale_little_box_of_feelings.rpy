@@ -9,7 +9,7 @@ init -990 python:
         dependencies={},
         settings_pane=None,
         version_updates={
-        "DaleRuneMTS_dale_little_box_of_feelings_1_5_0": "DaleRuneMTS_dale_little_box_of_feelings_1_6_0"
+        "DaleRuneMTS_dales_little_box_of_feelings_1_5_0": "DaleRuneMTS_dale_little_box_of_feelings_1_6_0"
         }
     )
 
