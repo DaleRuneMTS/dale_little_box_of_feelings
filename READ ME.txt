@@ -1,0 +1,6 @@
+dale_little_box_of_feelings
+Expand your emotional vocabulary with this submod, and tell Monika you're feeling weird, drained, lucky, itchy, and more!
+
+To install: place in your DDLC /game directory, under the /Submods folder - newly created, if necessary.
+
+Important: To get updates on this submod as they happen, you MUST have the Submod Updater Plugin! Otherwise you will be stuck on previous versions. Download this here: https://github.com/Booplicate/MAS-Submods-SubmodUpdaterPlugin
