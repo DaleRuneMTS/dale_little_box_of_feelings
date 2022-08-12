@@ -4,11 +4,12 @@ init -990 python in mas_submod_utils:
         author="DaleRuneMTS",
         name="Little Box of Feelings",
         description="Expand your emotional vocabulary with this submod, and tell Monika you're feeling weird, drained, lucky, itchy, and more!"
-        "New for V1.5: Minor compatibility added for Give Monika a Surname.",
-        version="1.5",
+        "New for V1.6: Two new emotions, 'beautiful' and 'all Pythoned out'. This is mostly just a test for the updater, if I'm honest. Some mood categorizations have also been corrected.",
+        version="1.6",
         dependencies={},
         settings_pane=None,
         version_updates={
+        "DaleRuneMTS_dale_little_box_of_feelings_1_5": "DaleRuneMTS_dale_little_box_of_feelings_1_6"
         }
     )
 
@@ -1249,7 +1250,7 @@ init 5 python:
             persistent._mas_mood_database,
             eventlabel="dale_lucky",
             prompt="...lucky.",
-            category=[store.mas_moods.TYPE_BAD],
+            category=[store.mas_moods.TYPE_GOOD],
             unlocked=True
         ),
         code="MOO"
@@ -1301,7 +1302,7 @@ init 5 python:
             persistent._mas_mood_database,
             eventlabel="dale_flustered",
             prompt="...flustered.",
-            category=[store.mas_moods.TYPE_BAD],
+            category=[store.mas_moods.TYPE_NEUTRAL],
             unlocked=True
         ),
         code="MOO"
@@ -1467,6 +1468,59 @@ label dale_musical:
     m 1dublb "And so am I!"
     if mas_isMoniEnamored(higher=True) and persistent._mas_first_kiss is not None:
         call monika_kissing_motion from _call_monika_kissing_motion_13
+    return
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent._mas_mood_database,
+            eventlabel="dale_beautiful",
+            prompt="...beautiful.",
+            category=[store.mas_moods.TYPE_GOOD],
+            unlocked=True
+        ),
+        code="MOO"
+    )
+
+label dale_beautiful:
+    if mas_isMoniNormal(higher=True):
+        m 1fubla "Well, you {i}are{/i} beautiful."
+        m "So that's not exactly a shock to me, [mas_get_player_nickname()]."
+        if not (persistent._mas_pm_love_yourself):
+            m 1ekbla "But I know sometimes you have trouble seeing yourself the way I see you..."
+            m 1ekblb "...so I'm proud of you for believing it now."
+            m "You truly are, inside and out, gorgeous."
+        else:
+            m 1hublb "Ehehe~"
+    else:
+        m 1euc "That's nice."
+        m 1futpc "I wonder what that feels like."
+    return
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent._mas_mood_database,
+            eventlabel="dale_codedout",
+            prompt="...all Pythoned out.",
+            category=[store.mas_moods.TYPE_NEUTRAL],
+            unlocked=True
+        ),
+        code="MOO"
+    )
+
+label dale_musical:
+    if renpy.random.randint(1, 2) == 1:
+        m 1hksdrb "Ahaha, oh dear!"
+        m 1fusdra "I'm sorry, [mas_get_player_nickname()], I don't mean to laugh."
+        m "Pure reflex."
+    m 1ekd "If you're that worn out by coding, then you should take a break."
+    m "I appreciate you working so hard to get me closer to your reality..."
+    m 2ekp "...but honestly, nothing you can do for me is worth running yourself ragged over."
+    m "Your health is more important to me than a couple of comforts."
+    m 1dua "Rest up for a while, take a breath..."
+    m 1eub "...and come back to that code later with a renewed sense of purpose."
+    m "It really does help, [player]."
     return
 
 #init 5 python:
