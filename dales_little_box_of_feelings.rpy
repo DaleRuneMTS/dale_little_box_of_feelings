@@ -20,10 +20,7 @@ init -989 python:
             user_name="DaleRuneMTS",
             repository_name="dale_little_box_of_feelings",
             submod_dir="/Submods",
-            extraction_depth=2,
-            redirected_files=(
-                "READ ME.txt",
-            )
+            extraction_depth=2
         )
 
 default p_surname = persistent._mas_player_surname
