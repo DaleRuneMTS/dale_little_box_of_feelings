@@ -4,12 +4,13 @@ init -990 python:
         author="DaleRuneMTS",
         name="Little Box of Feelings",
         description="Expand your emotional vocabulary with this submod, and tell Monika you're feeling weird, drained, lucky, itchy, and more!"
-        "New for V1.6: Two new emotions, 'beautiful' and 'all Pythoned out'. This is mostly just a test for the updater, if I'm honest. Some mood categorizations have also been corrected.",
-        version="1.6.0",
+        "New for V1.6.1: Queasy has been fixed.",
+        version="1.6.1",
         dependencies={},
         settings_pane=None,
         version_updates={
-        "DaleRuneMTS_dales_little_box_of_feelings_1_5_0": "DaleRuneMTS_dale_little_box_of_feelings_1_6_0"
+        "DaleRuneMTS_dale_little_box_of_feelings_1_5_0": "DaleRuneMTS_dale_little_box_of_feelings_1_6_1",
+        "DaleRuneMTS_dale_little_box_of_feelings_1_6_0": "DaleRuneMTS_dale_little_box_of_feelings_1_6_1"
         }
     )
 
@@ -20,6 +21,7 @@ init -989 python:
             submod="Little Box of Feelings",
             user_name="DaleRuneMTS",
             repository_name="dale_little_box_of_feelings",
+            submod_dir="/Submods",
             extraction_depth=2
         )
 
@@ -804,7 +806,7 @@ init 5 python:
     )
 
 label dale_queasy:
-    if (persistent._mas_mood_sick):
+    if persistent._mas_mood_sick:
         m 1ekd "I'm not surprised, [player]; you already said you're sick."
         m "...still, the fact that you're getting worse..."
         m 7fkc "I really do think you need to get some rest.{w=1} Even if only a little bit, it's better than nothing."
