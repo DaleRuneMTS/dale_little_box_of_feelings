@@ -4,13 +4,14 @@ init -990 python:
         author="DaleRuneMTS",
         name="Little Box of Feelings",
         description="Expand your emotional vocabulary with this submod, and tell Monika you're feeling weird, drained, lucky, itchy, and more!"
-        "New for V1.6.1: Queasy has been fixed.",
-        version="1.6.1",
+        "New for V1.7: Sniffly.",
+        version="1.7.0",
         dependencies={},
         settings_pane=None,
         version_updates={
-        "DaleRuneMTS_dale_little_box_of_feelings_1_5_0": "DaleRuneMTS_dale_little_box_of_feelings_1_6_1",
-        "DaleRuneMTS_dale_little_box_of_feelings_1_6_0": "DaleRuneMTS_dale_little_box_of_feelings_1_6_1"
+        "DaleRuneMTS_dale_little_box_of_feelings_1_5_0": "DaleRuneMTS_dale_little_box_of_feelings_1_7_0",
+        "DaleRuneMTS_dale_little_box_of_feelings_1_6_0": "DaleRuneMTS_dale_little_box_of_feelings_1_7_0",
+        "DaleRuneMTS_dale_little_box_of_feelings_1_6_1": "DaleRuneMTS_dale_little_box_of_feelings_1_7_0"
         }
     )
 
@@ -339,13 +340,13 @@ label dale_desperate:
                 $ persistent._mas_greeting_type_timeout = datetime.timedelta(hours=3)
                 return 'quit'
             "Someone to talk to.":
-                if mas_isMoniEnamored(higher=True) AND renpy.random.randint(1, 3) == 3:
+                if mas_isMoniEnamored(higher=True):
                     m 2tfc "Don't {i}I{/i} count as someone to talk to?"
                     m "..."
                     m 2hksdra "Ehehe~! {w=1}I'm just being silly, I know I do."
                 m 1ekb "We can talk as long as you'd like, [mas_get_player_nickname()]."
                 m "About as much as you'd like."
-                m 3ekb "You don't have to hold anything back on my account. I'm here."
+                m 3ekb "You don't have to hold anything back on my account. I'm here. "
                 extend 3eka "I promise."
             "Coffee.":
                 m 7skw "{i}Oh, me too.{/i}"
@@ -1571,6 +1572,37 @@ label dale_codedout:
 #        $ mas_consumable_coffee.prepare()
 #        m 7eub "There we go! Coffee on the pot."
 #return
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent._mas_mood_database,
+            eventlabel="dale_sniffly",
+            prompt="...sniffly.",
+            category=[store.mas_moods.TYPE_BAD],
+            unlocked=True
+        ),
+        code="MOO"
+    )
+
+label dale_sniffly:
+    if persistent._mas_mood_sick:
+        m 1fkd "Oh, is {i}that{/i} why you're sick? You've got a cold?"
+        m 1fkc "My poor [player]."
+    else:
+        m 1fkd "Oh dear..."
+        m "Have you caught a cold, [mas_get_player_nickname]?"
+        m 1fkc "You poor thing."
+    m "I hope it goes away soon."
+    m 1gkc "Bunged-up, sniffly noses are the {i}worst{/i}."
+    m 1wsd "I'm lucky, I haven't really been able to catch any colds since...{w=1} well, the epiphany."
+    m 2esd "I guess now that I know what my immune system's really made of - 0s and 1s - "
+    extend 2dsc "I know that germs can't actually do anything to me."
+    m 2esu "And it's not like I've got a lot of points of contamination, anyway."
+    m "...{w=0.5}{nw}"
+    extend 1ekc "Sorry, I'm self-relating again. Force of habit."
+    m 1eka "Really, I hope you feel better soon."
+    return
 
 init 5 python:
     addEvent(
