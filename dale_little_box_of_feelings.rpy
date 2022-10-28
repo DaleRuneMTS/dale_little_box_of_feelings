@@ -1663,7 +1663,7 @@ label dale_freaked:
             "I watched/read something surprisingly scary.":
                 label freaked_media:
                     m 1ekc "Ah, I see."
-                    if (persistent._mas_pm_likes_horror):
+                    if persistent._mas_pm_likes_horror:
                         m "You found something that's too much even for you?"
                         m 1eka "That's okay, [player]; it happens."
                         m "Everyone has their limits."
