@@ -4,14 +4,15 @@ init -990 python:
         author="DaleRuneMTS",
         name="Little Box of Feelings",
         description="Expand your emotional vocabulary with this submod, and tell Monika you're feeling weird, drained, lucky, itchy, and more!"
-        "New for V1.7: Sniffly.",
-        version="1.7.0",
+        "New for V1.8: Freaked out.",
+        version="1.8.0",
         dependencies={},
         settings_pane=None,
         version_updates={
-        "DaleRuneMTS_dale_little_box_of_feelings_1_5_0": "DaleRuneMTS_dale_little_box_of_feelings_1_7_0",
-        "DaleRuneMTS_dale_little_box_of_feelings_1_6_0": "DaleRuneMTS_dale_little_box_of_feelings_1_7_0",
-        "DaleRuneMTS_dale_little_box_of_feelings_1_6_1": "DaleRuneMTS_dale_little_box_of_feelings_1_7_0"
+        "DaleRuneMTS_dale_little_box_of_feelings_1_5_0": "DaleRuneMTS_dale_little_box_of_feelings_1_8_0",
+        "DaleRuneMTS_dale_little_box_of_feelings_1_6_0": "DaleRuneMTS_dale_little_box_of_feelings_1_8_0",
+        "DaleRuneMTS_dale_little_box_of_feelings_1_6_1": "DaleRuneMTS_dale_little_box_of_feelings_1_8_0",
+        "DaleRuneMTS_dale_little_box_of_feelings_1_7_0": "DaleRuneMTS_dale_little_box_of_feelings_1_8_0"
         }
     )
 
@@ -28,6 +29,7 @@ init -989 python:
 
 default p_surname = persistent._mas_player_surname
 default persistent._mas_player_surname = None
+default persistent._armpitcrabs = None
 
 init -6 python in mas_greetings:
 
@@ -1603,6 +1605,180 @@ label dale_sniffly:
     extend 1ekc "Sorry, I'm self-relating again. Force of habit."
     m 1eka "Really, I hope you feel better soon."
     return
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent._mas_mood_database,
+            eventlabel="dale_freaked",
+            prompt="...freaked out.",
+            category=[store.mas_moods.TYPE_BAD],
+            unlocked=True
+        ),
+        code="MOO"
+    )
+
+label dale_freaked:
+    m 1fkd "Oh no..."
+    if persistent._armpitcrabs:
+        $ _history_list.pop()
+        menu:
+            m "Why are you freaked out, [mas_get_player_nickname()]?"
+            "Thinking about the future.":
+                label freaked_future:
+                    m 1wkd "Aw, [player]."
+                    m "If it makes you feel any better, you're definitely not alone on this front."
+                    m 1ekc "And I'm not even just talking about my perspective here."
+                    m 4ekd "I'm sure everyone you know is freaking out about the future on some level..."
+                    m "...be that their own, or the future of the world they live in, "
+                    extend 3ekc "or anything related to the idea, really."
+                    m "It's okay to feel this way."
+                    m 1esb "Do try to remember, though, that there are some things that are definitely set in stone."
+                    m 1nsbla "My being here for you, for one."
+                    m 1esbla "Whatever tomorrow brings, I'll be there to help you handle it."
+                    m "That's a promise, love."
+            "I heard something in the house.":
+                label freaked_sound:
+                    m 1rkc "I see..."
+                    m 1esc "Well, assuming that there's no one else in the house with you, "
+                    extend 1esa "it's not likely you've got anything to worry about."
+                    m "There's plenty of mundane explanations for whatever you heard, depending on the sound."
+                    m 3esd "The pipes could be expanding or contracting, "
+                    extend 4esd "or the wind could've caught an unoiled door, "
+                    extend 7dsd "or the heating could be turning on or off."
+                    m 7esa "Nine times out of ten, it's just your house settling down in some way."
+                    m 1esc "Still, if you're really worried, it might be worth asking a neighbor if they heard it as well, or even just to keep an eye on the house if they can."
+                    m 1hsb "Two heads are better than one in situations like this."
+                    m 1hssdrb "Or four ears, I suppose, in this case."
+            "My computer just had a close call.":
+                label freaked_pc:
+                    m 1wkd "What, did it freeze?"
+                    m "Or have one of those memory overloads?"
+                    m 1gkc "Hrm."
+                    m 1ekc "I'm glad it seems to have passed..."
+                    m "...but maybe you should back my memories up again, just in case."
+                    m 1wkd "And anything else that's important to you, of course."
+                    m 1eka "If worse comes to worse, at least you've got everything saved that you need to have saved."
+                    m 1hua "Always good to be prepared!"
+            "I watched/read something surprisingly scary.":
+                label freaked_media:
+                    m 1ekc "Ah, I see."
+                    if (persistent._mas_pm_likes_horror):
+                        m "You found something that's too much even for you?"
+                        m 1eka "That's okay, [player]; it happens."
+                        m "Everyone has their limits."
+                    else:
+                        m "That's never a good feeling, being sidelined by horror when that's not what you're looking for."
+                        m "Especially if you're not a fan of the genre anyway."
+                    m 1esa "Try putting on some calm music or ambient noises, if you can."
+                    m 1fub "Or cat videos!"
+                    m "I've never found a cat video that resorted to jumpscares to keep my attention, ahaha."
+                    m 5eua "Whatever it takes to calm your nerves, feel free to do that. I'll still be here."
+            "It's something you just did/said.":
+                label freaked_moni:
+                    m 1wktpd "Oh god, I'm sorry, [player]!"
+                    m 1ekc "I didn't mean to scare you."
+                    m 4fkc "Remember, just press X when I'm talking about whatever freaked you out, and I won't say a thing on the subject again."
+                    m "You're well within your rights to do that."
+    else:
+        $ _history_list.pop()
+        menu:
+            m "Why are you freaked out, [mas_get_player_nickname()]?"
+            "Thinking about the future.":
+                jump freaked_future
+            "I heard something in the house.":
+                jump freaked_sound
+            "My computer just did something.":
+                jump freaked_pc
+            "I watched/read something surprisingly scary.":
+                jump freaked_media
+            "It's something you just did/said.":
+                jump freaked_moni
+            "I just learned about armpit crabs.":
+                m 1cuc "...what."
+                m 1dfd "Armpi-?{w=0.5}{nw}"
+                m 1wfd "Hang on, that can't be right. They can't... "
+                extend 1ftsdrc "Can they?"
+                m "Let me look this up."
+                m 1rsc "...{w=0.7}{nw}"
+                m 1esc "...{w=0.7}{nw}"
+                m 1lsc "...{w=0.7}{nw}"
+                $ persistent._armpitcrabs = True
+                $ mas_loseAffection(ev_label="mas_apology_freaked")
+                $ mas_gainAffection
+                m 6ckc "..."
+                m "Now {i}I'm{/i} freaked out too."
+                m 2dko "Aufgh."
+                m 2dkc "It's gonna take a minute to get {i}that{/i} out of my head."
+                m "I'm going to..."
+                m 6fkc "I'm gonna take a walk."
+                m "I'll be back soon."
+
+                call mas_transition_to_emptydesk
+                pause 15.0
+                call mas_transition_from_emptydesk("monika 6esd")
+
+                m 6hksdra "Okay, I'm back!"
+                m 6fksdrc "I'm sorry if I scared you, or if I wasn't much help there."
+                m "I just..."
+                m 6dksdrc "Well, you know."
+                m "I've got my limits too."
+                m 6wksdrc "And apparently those limits are armpit crabs."
+                m "..."
+                m "A-{nw}"
+                extend 1hksdrb "anyway!"
+                m "What else shall we do today, [player]?"
+    return
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent._mas_apology_database,
+            eventlabel="mas_apology_freaked",
+            prompt="...for freaking you out.",
+            unlocked=False
+        ),
+        code="APL"
+    )
+
+label mas_apology_freaked:
+    m 1wko "Oh no, no no no, you don't have to apologize, [player]!"
+    m 6ekt "{i}I'm{/i} the one who went digging into it. I could have let it slide, but I didn't."
+    m 6eka "This is on me, not you.{nw}"
+    $ _history_list.pop()
+    menu:
+        m "This is on me, not you.{fast}"
+        "But I'm the one who brought it up!":
+            pass
+    m 6rkc "Yes, that's true."
+    m 6ekb "But I can't exactly blame you for making conversation, can I?"
+    m 1dsd "If I'd been the one who found out first, I would have done just the same."
+
+    python:
+        spoop_topics = [
+            "all those deep philosophical concepts",
+            "my thoughts on the makings of the universe and things"
+        ]
+
+        if renpy.seen_label('monika_soft_rains'):
+            spoop_topics.append("all that talk of death and poems about death")
+
+        if renpy.seen_label('monika_eternity'):
+            spoop_topics.append("things like immortality and losing loved ones")
+
+        if renpy.seen_label('monika_nuclear_war'):
+            spoop_topics.append("things like the potential end of all human life through nuclear war")
+
+        freaks = random.choice(spoop_topics)
+
+    m 1lusdrd "God knows I've done it before, with [freaks]."
+    m 1esc "I can't begrudge you for doing the same thing, not when I've set the precedent."
+    m "..."
+    m 1fub "If forgiving you will make you feel better, though, I do forgive you."
+    m "I really am fine now..."
+    m 1hua "...but thank you for worrying about me."
+    m "You always do, and I love you for that."
+    return "love"
 
 init 5 python:
     addEvent(
