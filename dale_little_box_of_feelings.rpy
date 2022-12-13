@@ -4,15 +4,16 @@ init -990 python:
         author="DaleRuneMTS",
         name="Little Box of Feelings",
         description="Expand your emotional vocabulary with this submod, and tell Monika you're feeling weird, drained, lucky, itchy, and more!"
-        "New for V1.8: Freaked out.",
-        version="1.8.0",
+        "New for V1.9: Festive has been added, as well as 'not very festive' for those who're having a rough time of it this holiday season.",
+        version="1.9.0",
         dependencies={},
         settings_pane=None,
         version_updates={
-        "DaleRuneMTS_dale_little_box_of_feelings_1_5_0": "DaleRuneMTS_dale_little_box_of_feelings_1_8_0",
-        "DaleRuneMTS_dale_little_box_of_feelings_1_6_0": "DaleRuneMTS_dale_little_box_of_feelings_1_8_0",
-        "DaleRuneMTS_dale_little_box_of_feelings_1_6_1": "DaleRuneMTS_dale_little_box_of_feelings_1_8_0",
-        "DaleRuneMTS_dale_little_box_of_feelings_1_7_0": "DaleRuneMTS_dale_little_box_of_feelings_1_8_0"
+        "DaleRuneMTS_dale_little_box_of_feelings_1_5_0": "DaleRuneMTS_dale_little_box_of_feelings_1_9_0",
+        "DaleRuneMTS_dale_little_box_of_feelings_1_6_0": "DaleRuneMTS_dale_little_box_of_feelings_1_9_0",
+        "DaleRuneMTS_dale_little_box_of_feelings_1_6_1": "DaleRuneMTS_dale_little_box_of_feelings_1_9_0",
+        "DaleRuneMTS_dale_little_box_of_feelings_1_7_0": "DaleRuneMTS_dale_little_box_of_feelings_1_9_0",
+        "DaleRuneMTS_dale_little_box_of_feelings_1_8_0": "DaleRuneMTS_dale_little_box_of_feelings_1_9_0"
         }
     )
 
@@ -30,6 +31,7 @@ init -989 python:
 default p_surname = persistent._mas_player_surname
 default persistent._mas_player_surname = None
 default persistent._armpitcrabs = None
+default persistent_player_christmas_nonobserver = False
 
 init -6 python in mas_greetings:
 
@@ -1779,6 +1781,122 @@ label mas_apology_freaked:
     m 1hua "...but thank you for worrying about me."
     m "You always do, and I love you for that."
     return "love"
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent._mas_mood_database,
+            eventlabel="dale_festive",
+            prompt="...festive!",
+            category=[store.mas_moods.TYPE_GOOD],
+            unlocked=True
+        ),
+        code="MOO"
+    )
+
+label dale_festive:
+    if mas_isD25Season():
+        m 1hub "Ahaha, small wonder, given the time of year!"
+        if mas_HistVerifyLastYear_k(True, "d25.actions.spent_d25"):
+            m 1eublu "The thought of having another Christmas together makes me feel pretty festive myself."
+            m 1lubld "I'm not sure how we can top last year..."
+            m 2nubla "...but it's you. I'm sure you'll find a way."
+        else:
+            m 1eublu "To be honest, I'm feeling pretty festive myself."
+            m "The idea of spending our first Christmas together..."
+            m 1fublb "...it brings joy to my world that I can't even fathom, much less describe."
+        m 1eublb "I can't wait for what it - what {i}you{/i} will bring."
+    else:
+        m 1wsd "Really? That's interesting..."
+        m 1tsa "...considering it's not even Christmas yet!"
+        m 1hua "Ehehe~"
+        m "I'm glad you've started the celebrations early! Genuinely, good for you."
+    return
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent._mas_mood_database,
+            eventlabel="dale_unfestive",
+            prompt="...not very festive.",
+            category=[store.mas_moods.TYPE_NEUTRAL],
+            unlocked=True
+        ),
+        code="MOO"
+    )
+
+label dale_unfestive:
+    if mas_isD25Season():
+        if not mas_getEVL_shown_count("dale_unfestive"):
+            m 6ekd "Oh dear. I'm sorry, [mas_get_player_nickname()]."
+            m 7rkd "Is this a, like - {nw}"
+            extend 1ekc "is it just this year you're not feeling the season?"
+            m "Or are you not a fan of Christmas in general?{nw}"
+            $ _history_list.pop()
+            menu:
+                m "Or are you not a fan of Christmas in general?{fast}"
+                "There's been bad stuff happening lately, it's killed the buzz.":
+                    m 1lsc "Ah, that's understandable."
+                    m 1lsd "There's been too much else on your mind; it's hard to focus on the positives with that kind of stuff swimming in there."
+                    m 1eka "You don't have to go all in on the celebrating if you need to save your energy."
+                    m "I can hold enough yuletide cheer for both of us!"
+                "I'm grieving right now. It won't be the same as it was.":
+                    label dale_unfestive_grieving:
+                        m 6wkd "Oh, [player]."
+                        m 6dktpc "I'm so, so sorry."
+                        m "That must be so awful - to lose someone like that, so near to Christmas..."
+                        m 1ektpc "I know my words won't be enough. So little ever is, when you're grieving."
+                        m "But know that I'll listen to you vent, hold you while you cry as best as I can - "
+                        m 1ektdc "Whatever you need, my love."
+                        m "Whatever the season."
+                        return
+                "Just a general feeling of blech.":
+                    m 1ekd "Aw, [player], that must suck."
+                    m "I hope it doesn't last too long - {w=0.6}for your sake, I mean."
+                    m 1wusdrc "If it does pass, so much the better! But if not, that's okay as well."
+                    m 1eusdrc "These things are hard to control."
+                "Nothing's {i}wrong{/i}, I just don't celebrate Christmas.":
+                    $ persistent_player_christmas_nonobserver = True
+                    m 6wusdrc "{i}Oh{/i}!"
+                    m 1wusdrd "Right, of course that'd - "
+                    m 1fuc "I'm sorry, [player], I wasn't thinking."
+                    m "I - {w=1}{nw}"
+                    extend 3rkd "well, everyone in the back end, but that basically amounts to me - {w=1}{nw}"
+                    extend 1ekd "I didn't take into account that that would be a thing."
+                    m 1dksdrc "Um..."
+                    m "...{nw}"
+                    m 4esd "Okay, it's a little late to do it now, "
+                    extend 3esa "but for next year, I'll try and find a way to make all this optional."
+            m 1eka "In the meantime, you can take a break from this if it's getting too much for you."
+            m "As long as you let me know how long you'll be gone, I won't mind. I promise."
+        else:
+            if persistent_player_christmas_nonobserver:
+                m 1lsc "Yeah, you don't celebrate Christmas, do you?"
+                m "That makes sense."
+                m 1eua "And that's okay, [player]. I hope I've made that clear."
+                if mas_HistVerifyLastYear_k(True, "d25.actions.spent_d25"):
+                    m 1wud "Or at least I hope the submod makers have made that clear by now."
+                    m 1euu "If they haven't, feel free to yell at them for me."
+            else:
+                if mas_HistVerifyLastYear_k(True, "d25.actions.spent_d25"):
+                    m 1ekc "Again, huh?"
+                    m "I'm sorry this keeps happening, [mas_get_player_nickname()]."
+                    if renpy.seen_label("dale_unfestive_grieving"):
+                        m 1dkd "I hope, hope, hope it's not the same thing as it was last time."
+                        m "That would be too awful."
+                    m 1eka "I'll try and be festive for both of us, okay?"
+                    m "You don't have to fret."
+                else:
+                    m 1ekc "Still, huh?"
+                    m 1eka "That's okay. You're perfectly okay to keep feeling this way."
+                    m "It's not one of those things that just snaps back overnight."
+                    m "Let me know if you need anything, and I'll do what I can to provide it."
+    else:
+        m 1tua "Well, duh."
+        m "You can't be festive if it's not even Christmas."
+        m 1hub "Ehehe~"
+        m 3eub "I guess it's never too early to practice your Scroogery!"
+    return
 
 init 5 python:
     addEvent(
